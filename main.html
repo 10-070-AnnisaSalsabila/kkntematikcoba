@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Website Resmi Desa Maju</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                animation: {
+                    'fade-in': 'fadeIn 0.8s ease-in-out',
+                    'slideFadeIn': 'slideFadeIn 0.6s ease-out',
+                },
+                keyframes: {
+                    fadeIn: {
+                        '0%': { opacity: '0', transform: 'translateY(20px)' },
+                        '100%': { opacity: '1', transform: 'translateY(0)' }
+                    },
+                    slideFadeIn: {
+                        '0%': { opacity: '0', transform: 'translateX(-30px)' },
+                        '100%': { opacity: '1', transform: 'translateX(0)' }
+                    }
+                }
+            }
+        }
+    }
+</script>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: white;
+        min-height: 100vh;
+    }
+    
+    /* Header biru diperlebar ke bawah */
+    nav.navbar {
+        background: #2c3e50;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    
+    /* Logo rumah */
+    .logo-img {
+        width: 56px;
+        height: 56px;
+        object-fit: contain;
+        filter: drop-shadow(0 0 2px rgba(0,0,0,0.3));
+    }
+    
+    /* Nama desa memenuhi blok biru */
+    .logo-name h1 {
+        color: white;
+        font-weight: 700;
+        font-size: 2.25rem;
+        line-height: 1.1;
+        user-select: none;
+    }
+    
+    /* Menu desktop */
+    .menu-item {
+        color: white;
+        font-weight: 600;
+        position: relative;
+        padding-bottom: 0.25rem;
+        transition: color 0.3s ease;
+    }
+    
+    .menu-item:hover {
+        color: #3498db;
+    }
+    
+    .menu-item::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0%;
+        height: 2px;
+        background: #3498db;
+        transition: width 0.3s ease;
+    }
+    
+    .menu-item:hover::after {
+        width: 100%;
+    }
+    
+    /* Mobile menu background */
+    #mobile-menu {
+        background: #2c3e50;
+    }
+    
+    #mobile-menu a {
+        color: white;
+        font-weight: 600;
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        display: block;
+    }
+    
+    #mobile-menu a:hover {
+        background: #3498db;
+    }
+    
+    /* Animasi pulse untuk ikon kontak */
+    @keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(1.1);
+            opacity: 0.7;
+        }
+    }
+    
+    .contact-icon {
+        width: 32px;
+        height: 32px;
+        margin-right: 0.75rem;
+        animation: pulse 2.5s infinite;
+        flex-shrink: 0;
+    }
+    
+    /* Kontak card */
+    .contact-info {
+        background: #f0f4f8;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .contact-row {
+        cursor: default;
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.25rem;
+    }
+    
+    .contact-row:hover {
+        background-color: #dbeafe;
+        transform: scale(1.03);
+    }
+    
+    .contact-text {
+        font-size: 1.125rem;
+        color: #2c3e50;
+        font-weight: 600;
+    }
+    
+    /* Animasi muncul slide dan fade */
+    .contact-anim {
+        opacity: 0;
+        animation-name: slideFadeIn;
+        animation-duration: 0.6s;
+        animation-fill-mode: forwards;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 640px) {
+        .logo-name h1 {
+            font-size: 1.75rem;
+        }
+        .contact-info {
+            padding: 1.5rem;
+        }
+    }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<nav class="navbar fixed top-0 w-full z-50 px-6 lg:px-20 flex items-center justify-between">
+    <div class="logo-name flex items-center space-x-4">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b7fb6b25-669e-4287-865c-5545bf00c6be.png" alt="Logo Rumah Desa Maju dengan ikon rumah modern" class="logo-img" />
+        <h1>Desa Maju</h1>
+    </div>
+    
+    <!-- Hamburger -->
+    <div class="lg:hidden">
+        <button id="menu-toggle" aria-label="Toggle menu" class="text-white focus:outline-none">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+    </div>
+    
+    <!-- Desktop menu -->
+    <div class="hidden lg:flex space-x-10">
+        <a href="#beranda" class="menu-item">Beranda</a>
+        <a href="#berita" class="menu-item">Berita</a>
+        <a href="#umkm" class="menu-item">UMKM</a>
+        <a href="#wisata" class="menu-item">Wisata</a>
+        <a href="#kontak" class="menu-item">Kontak</a>
+    </div>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobile-menu" class="hidden lg:hidden flex flex-col mt-24">
+    <a href="#beranda">Beranda</a>
+    <a href="#berita">Berita</a>
+    <a href="#umkm">UMKM</a>
+    <a href="#wisata">Wisata</a>
+    <a href="#kontak">Kontak</a>
+</div>
+
+<!-- Main content -->
+<main class="pt-36 max-w-5xl mx-auto px-6 pb-20 text-gray-900">
+
+    <!-- Beranda -->
+    <section id="beranda" class="mb-20 animate-fade-in">
+        <h2 class="text-4xl font-bold mb-6 border-b-4 border-blue-400 inline-block">Sejarah Singkat Desa</h2>
+        <p class="mb-6 text-lg leading-relaxed">Desa Maju didirikan pada tahun 1920, berkembang pesat dengan masyarakat yang ramah dan budaya yang kaya. Desa ini memiliki warisan budaya yang kuat dan terus berkembang seiring dengan kemajuan zaman.</p>
+
+        <h3 class="text-3xl font-semibold mb-4">Visi dan Misi Desa</h3>
+        <p class="mb-2"><strong>Visi:</strong> Menjadi desa mandiri yang sejahtera dan berbudaya.</p>
+        <ul class="list-disc list-inside mb-6">
+            <li>Meningkatkan kualitas pendidikan dan kesehatan masyarakat</li>
+            <li>Mengembangkan potensi ekonomi lokal yang berkelanjutan</li>
+            <li>Melestarikan budaya dan lingkungan yang harmonis</li>
+            <li>Membangun infrastruktur yang modern dan layak</li>
+        </ul>
+
+        <h3 class="text-3xl font-semibold mb-4">Potensi Desa</h3>
+        <p class="mb-6">Desa Maju memiliki potensi yang sangat besar di bidang pertanian organik, kerajinan tangan tradisional, dan pariwisata alam yang menakjubkan. Kami juga mengembangkan wisata edukasi dan homestay untuk para pengunjung.</p>
+
+        <div class="flex flex-col md:flex-row md:space-x-10 items-center md:items-start mb-10">
+            <div class="mb-6 md:mb-0 text-center">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/bd96d62b-9d4f-4bff-bbb5-1c0c2577c524.png" alt="Foto resmi Kepala Desa Bapak Joko Santoso dengan latar kantor desa" class="rounded-full w-48 h-48 object-cover shadow-lg" />
+                <p class="mt-3 font-semibold text-xl">Kepala Desa: Bapak Joko Santoso</p>
+            </div>
+            <div class="flex-1 bg-blue-900 bg-opacity-10 rounded-lg p-6 shadow-lg">
+                <h3 class="text-2xl font-semibold mb-4">Struktur Kepengurusan Desa</h3>
+                <table class="w-full border-collapse border border-gray-300">
+                    <thead>
+                        <tr class="bg-blue-100">
+                            <th class="border border-gray-300 px-4 py-2 text-left">Jabatan</th>
+                            <th class="border border-gray-300 px-4 py-2 text-left">Nama</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">Kepala Desa</td>
+                            <td class="border border-gray-300 px-4 py-2">Bapak Joko Santoso</td>
+                        </tr>
+                        <tr class="bg-blue-50">
+                            <td class="border border-gray-300 px-4 py-2">Sekretaris Desa</td>
+                            <td class="border border-gray-300 px-4 py-2">Ibu Sari Dewi</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">Kepala Urusan Keuangan</td>
+                            <td class="border border-gray-300 px-4 py-2">Bapak Agus Setiawan</td>
+                        </tr>
+                        <tr class="bg-blue-50">
+                            <td class="border border-gray-300 px-4 py-2">Kepala Urusan Pemerintahan</td>
+                            <td class="border border-gray-300 px-4 py-2">Ibu Rina Lestari</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">Kepala Seksi Kesejahteraan</td>
+                            <td class="border border-gray-300 px-4 py-2">Bapak Budi Santoso</td>
+                        </tr>
+                        <tr class="bg-blue-50">
+                            <td class="border border-gray-300 px-4 py-2">Kepala Seksi Pelayanan</td>
+                            <td class="border border-gray-300 px-4 py-2">Ibu Maya Indah</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <h3 class="text-3xl font-semibold mb-4">Alamat Desa</h3>
+        <p class="text-lg">Jl. Merdeka No. 10, Desa Maju, Kecamatan Sejahtera, Kabupaten Makmur, Provinsi Bahagia.</p>
+    </section>
+
+    <!-- Berita -->
+    <section id="berita" class="mb-20 animate-fade-in">
+        <h2 class="text-4xl font-bold mb-6 border-b-4 border-blue-400 inline-block">Berita dan Kegiatan Desa</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div>
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/259e0898-09ab-4adc-8998-d3ca38db5be8.png" alt="Kegiatan gotong royong warga membersihkan lingkungan desa dengan semangat kebersamaan" class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300" />
+                <p class="mt-2 font-semibold">Gotong Royong Bersama Warga</p>
+                <p class="text-sm text-gray-600">Kegiatan bersih-bersih lingkungan dalam rangka memperingati hari lingkungan hidup</p>
+            </div>
+            <div>
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fd083dc5-575c-43aa-a6ec-6e4810625cfa.png" alt="Pelatihan pengembangan usaha mikro kecil menengah untuk warga desa dengan instruktur profesional" class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300" />
+                <p class="mt-2 font-semibold">Pelatihan UMKM Desa Maju</p>
+                <p class="text-sm text-gray-600">Workshop pengembangan produk dan pemasaran digital untuk pelaku UMKM</p>
+            </div>
+            <div>
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1c0fe049-8324-4764-be1b-3a1e8459bd46.png" alt="Festival budaya tahunan dengan tarian tradisional dan stand kuliner khas desa" class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300" />
+                <p class="mt-2 font-semibold">Festival Budaya Tahunan</p>
+                <p class="text-sm text-gray-600">Perayaan budaya lokal dengan berbagai pertunjukan seni dan kuliner tradisional</p>
+            </div>
+        </div>
+
+        <h3 class="text-3xl font-semibold mb-4">Kelompok KKN dan Asal Kampus</h3>
+        <p class="mb-6">Kelompok KKN Desa Maju berasal dari Universitas Negeri Bahagia, Fakultas Ilmu Sosial dan Ilmu Politik. Program KKN ini berfokus pada pemberdayaan masyarakat dan pengembangan potensi desa.</p>
+        <div class="flex flex-wrap justify-center gap-8">
+            <div class="text-center">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c66dd93e-1333-42d5-ba0e-5798a8a3fa41.png" alt="Foto Siti Nurhaliza - Mahasiswa KKN dengan senyum ramah dan background kampus" class="rounded-full w-24 h-24 object-cover shadow-lg" />
+                <p class="mt-2 font-semibold">Siti Nurhaliza</p>
+                <p class="text-sm text-gray-600">Koordinator Kelompok</p>
+            </div>
+            <div class="text-center">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f3e7e9e5-98b6-4ca8-bf98-48499393c87e.png" alt="Foto Andi Pratama - Mahasiswa KKN dengan pose formal dan background perpustakaan" class="rounded-full w-24 h-24 object-cover shadow-lg" />
+                <p class="mt-2 font-semibold">Andi Pratama</p>
+                <p class="text-sm text-gray-600">Sekretaris</p>
+            </div>
+            <div class="text-center">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2115b78c-d11b-4489-91ab-a4c66c44585c.png" alt="Foto Dewi Lestari - Mahasiswa KKN dengan ekspresi ceria dan background alam" class="rounded-full w-24 h-24 object-cover shadow-lg" />
+                <p class="mt-2 font-semibold">Dewi Lestari</p>
+                <p class="text-sm text-gray-600">Bendahara</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- UMKM -->
+    <section id="umkm" class="mb-20 animate-fade-in">
+        <h2 class="text-4xl font-bold mb-6 border-b-4 border-blue-400 inline-block">Produk UMKM Desa Maju</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-blue-100 rounded-lg p-4 shadow-lg hover:scale-105 transition-transform duration-300">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/87122595-4993-4ab8-8ef6-a3c8615524de.png" alt="Kerajinan anyaman bambu tradisional dengan motif khas desa yang indah dan detail" class="rounded-lg mb-3" />
+                <p class="font-semibold">Kerajinan Anyaman Bambu</p>
+                <p class="text-sm mb-2">Produk anyaman tradisional dengan kualitas terbaik</p>
+                <p class="font-semibold text-blue-600">Kontak: 0812-3456-7890</p>
+            </div>
+            <div class="bg-blue-100 rounded-lg p-4 shadow-lg hover:scale-105 transition-transform duration-300">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3d1ef653-1c39-49ca-af71-e582761fa602.png" alt="Madu hutan asli dengan kemasan botol kaca dan label desa yang menarik" class="rounded-lg mb-3" />
+                <p class="font-semibold">Madu Hutan Asli</p>
+                <p class="text-sm mb-2">Madu murni dari hutan alam desa kami</p>
+                <p class="font-semibold text-blue-600">Kontak: 0813-9876-5432</p>
+            </div>
+            <div class="bg-blue-100 rounded-lg p-4 shadow-lg hover:scale-105 transition-transform duration-300">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2dc92cdb-3c3c-4708-a46c-a76208666b3e.png" alt="Keripik singkong berbagai rasa dengan kemasan menarik dan higienis" class="rounded-lg mb-3" />
+                <p class="font-semibold">Keripik Singkong</p>
+                <p class="text-sm mb-2">Camilan tradisional dengan rasa modern</p>
+                <p class="font-semibold text-blue-600">Kontak: 0812-1122-3344</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wisata -->
+    <section id="wisata" class="mb-20 animate-fade-in">
+        <h2 class="text-4xl font-bold mb-6 border-b-4 border-blue-400 inline-block">Wisata Desa Maju</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-blue-100 rounded-lg p-4 shadow-lg hover:scale-105 transition-transform duration-300">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0c45bc57-e1fc-4393-8664-676f346521d1.png" alt="Air terjun alami dengan air jernih dan pemandangan hutan hijau yang mempesona" class="rounded-lg mb-3" />
+                <p class="font-semibold">Air Terjun Indah</p>
+                <p class="text-sm mb-2">Air terjun dengan ketinggian 25 meter</p>
+                <p class="text-blue-600">Lokasi: Desa Maju, Kecamatan Sejahtera</p>
+            </div>
+            <div class="bg-blue-100 rounded-lg p-4 shadow-lg hover:scale-105 transition-transform duration-300">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/98df76cb-980b-4eb0-9dae-39bd699600fd.png" alt="Bukit panorama dengan view 360 derajat melihat pemandangan desa dan perbukitan" class="rounded-lg mb-3" />
+                <p class="font-semibold">Bukit Panorama</p>
+                <p class="text-sm mb-2">Spot terbaik untuk melihat sunrise dan sunset</p>
+                <p class="text-blue-600">Lokasi: Desa Maju, Kabupaten Makmur</p>
+            </div>
+            <div class="bg-blue-100 rounded-lg p-4 shadow-lg hover:scale-105 transition-transform duration-300">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/21d24f24-546f-4d8d-8e47-55346bd9f41e.png" alt="Danau biru yang jernih dengan air berwarna biru kehijauan dan pepohonan sekitar" class="rounded-lg mb-3" />
+                <p class="font-semibold">Danau Biru</p>
+                <p class="text-sm mb-2">Danau alam dengan air berwarna biru alami</p>
+                <p class="text-blue-600">Lokasi: Desa Maju, Provinsi Bahagia</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontak -->
+    <section id="kontak" class="mb-20 animate-fade-in">
+        <h2 class="text-4xl font-bold mb-8 border-b-4 border-blue-400 inline-block text-center">Kontak Desa Maju</h2>
+        <div class="contact-info">
+            <div class="contact-row contact-anim" style="animation-delay: 0s;">
+                <svg class="contact-icon text-blue-600" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.86 19.86 0 0 1-3.07-8.67A2 极 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13 1.21.38 2.39.73 3.5a2 2 0 0 1-.45 2.11L8.09 10.91a16 16 0 0 0 6 6l1.59-1.59a2 2 0 0 1 2.11-.45c1.11.37 2.3.62 3.5.73a2 2 0 0 1 1.72 2z"></path>
+                </svg>
+                <p class="contact-text">Telepon: 0812-3456-7890</p>
+            </div>
+            <div class="contact-row contact-anim" style="animation-delay: 0.3s;">
+                <svg class="contact-icon text-blue-600" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+                    <path d="M4 7l8 5 8-5"></path>
+                </svg>
+                <p class="contact-text">Email: desa.maju@example.com</p>
+            </div>
+            <div class="contact-row contact-anim" style="animation-delay: 0.6s;">
+                <svg class="contact-icon text-blue-600" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 10h18M3 14h18M7 6h10M7 18h10"></path>
+                </svg>
+                <p class="contact-text">Alamat: Jl. Merdeka No. 10, Desa Maju, Kecamatan Sejahtera, Kabupaten Makmur, Provinsi Bahagia.</p>
+            </div>
+            <div class="contact-row contact-anim" style="animation-delay: 0.9s;">
+                <svg class="contact-icon text-blue-6
